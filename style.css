@@ -1,0 +1,18 @@
+#calc {
+    background-color: rgb(200,200,200);
+    display: grid;
+    grid-template-rows: 30% 70%;
+    width: 200px;
+    height: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#display, #buttons * {
+    background-color: rgb(180,180,180);
+    border: 2px solid rgb(160,160,160);
+}
+#buttons {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    column-gap: 10%;
+}
