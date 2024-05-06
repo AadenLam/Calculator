@@ -4,13 +4,46 @@
     <meta charset="UTF-8">
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <section id="calc">
-        <h1 id="display">numbers go here</h1>
+        <h1 id="display">|</h1>
         <section id="buttons">
-            <p>A</p>
-            <p>B</p>
+            <section id="num-buttons">
+                <button onclick="add(7)">7</button>
+                <button onclick="add(8)">8</button>
+                <button onclick="add(9)">9</button>
+                <button onclick="add(4)">4</button>
+                <button onclick="add(5)">5</button>
+                <button onclick="add(6)">6</button>
+                <button onclick="add(1)">1</button>
+                <button onclick="add(2)">2</button>
+                <button onclick="add(3)">3</button>
+                <button onclick="add(0)">0</button>
+                <button onclick="add('.')">.</button>
+                <button onclick="setDisplayText('wip')">=</button>
+            </section>
+            <section id="arrow-and-op-buttons">
+                <section id="arrow-buttons">
+                    <button id="up">^</button>
+                    <button onclick="move(-1)"><</button>
+                    <button>v</button>
+                    <button onclick="move(1)">></button>
+                </section>
+                <section id="op-buttons">
+                    <button>sqrt</button>
+                    <button>^</button>
+                    <button>(</button>
+                    <button>)</button>
+                    <button>*</button>
+                    <button>/</button>
+                    <button>+</button>
+                    <button>-</button>
+                    <button>back</button>
+                    <button>clear</button>
+                </section>
+            </section>
         </section>
     </section>
 </body>

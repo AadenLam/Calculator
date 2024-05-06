@@ -1,18 +1,49 @@
 #calc {
     background-color: rgb(200,200,200);
     display: grid;
-    grid-template-rows: 30% 70%;
-    width: 200px;
-    height: 300px;
+    grid-template-rows: 20% 70%;
+    row-gap: 10%;
+    width: 50%;
+    height: 700px;
     padding-left: 10px;
     padding-right: 10px;
 }
 #display, #buttons * {
     background-color: rgb(180,180,180);
     border: 2px solid rgb(160,160,160);
+    font-size: 20px;
+    font-family: "Arial Black", serif;
+}
+#buttons * {
+    text-align: center;
 }
 #buttons {
     display: grid;
-    grid-template-columns: 45% 45%;
+    grid-template-columns: auto auto;
     column-gap: 10%;
+}
+#num-buttons {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 2%;
+    grid-template-rows: auto auto auto auto;
+    row-gap: 2%;
+}
+#arrow-and-op-buttons {
+    display: grid;
+    grid-template-rows: 30% 60%;
+    row-gap: 10%;
+}
+#arrow-buttons {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+}
+#op-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto auto;
+}
+#up {
+    grid-column: 1 / 4;
 }
