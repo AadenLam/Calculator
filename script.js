@@ -1,14 +1,20 @@
 let pointer = 0; // pointer '|' position in the display, 0 is at the beginning
-let display = ""; // the current display (not including pointer)
+let display = []; // the expression shown in the display
 function add(x) {
-    display = display.substring(0,pointer) + x + display.substring(pointer);
+    display.splice(pointer, 0, x);
     pointer++;
+    setDisplay();
+}
+function back() {
+    display = display.slice(0, display.length - 1);
+    move(-1);
+    if (display.length === 0) {pointer = 0;}
     setDisplay();
 }
 function calc() {
     // wip
 }
-function equals() {
+function clear() {
     // wip
 }
 function history(dir) {
@@ -21,10 +27,14 @@ function move(dir) {
     setDisplay();
 }
 function setDisplay() {
-    document.getElementById('display').innerHTML = display.substring(0, pointer) + "|" + display.substring(pointer);
-}
-function setDisplayText(text) {
-    display = text;
-    pointer = text.length;
-    setDisplay();
+    let i = 0;
+    let text = "";
+    for (; i < pointer; i++) {
+        text += display[i];
+    }
+    text += '|';
+    for (; i < display.length; i++) {
+        text += display[i];
+    }
+    document.getElementById("display").innerHTML = text;
 }

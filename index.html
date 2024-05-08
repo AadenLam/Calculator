@@ -22,7 +22,7 @@
                 <button onclick="add(3)">3</button>
                 <button onclick="add(0)">0</button>
                 <button onclick="add('.')">.</button>
-                <button onclick="setDisplayText('wip')">=</button>
+                <button>=</button>
             </section>
             <section id="arrow-and-op-buttons">
                 <section id="arrow-buttons">
@@ -32,16 +32,16 @@
                     <button onclick="move(1)">></button>
                 </section>
                 <section id="op-buttons">
-                    <button>sqrt</button>
-                    <button>^</button>
-                    <button>(</button>
-                    <button>)</button>
-                    <button>*</button>
-                    <button>/</button>
-                    <button>+</button>
-                    <button>-</button>
-                    <button>back</button>
-                    <button>clear</button>
+                    <button onclick="add('sqrt(')">sqrt</button>
+                    <button onclick="add('^')">^</button>
+                    <button onclick="add('(')">(</button>
+                    <button onclick="add(')')">)</button>
+                    <button onclick="add('*')">*</button>
+                    <button onclick="add('/')">/</button>
+                    <button onclick="add('+')">+</button>
+                    <button onclick="add('-')">-</button>
+                    <button onclick="back()">back</button>
+                    <button onclick="clear()">clear</button>
                 </section>
             </section>
         </section>
