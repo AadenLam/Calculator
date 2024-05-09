@@ -11,11 +11,56 @@ function back() {
     if (display.length === 0) {pointer = 0;}
     setDisplay();
 }
-function calc() {
-    // wip
+function calc(expression) {
+    // combine digits into full numbers (FIX)
+    console.log(expression)
+    let nums = ["0","1","2","3","4","5","6","7","8","9","."]
+    for (let i = 1; i < expression.length; i++) {
+        if (nums.indexOf(expression[i]) !== -1 && nums.indexOf(expression[i-1]) !== -1) {
+            expression[i-1] += expression[i];
+            expression = expression.slice(0, i).concat(expression.slice(i+1));
+            i--;
+        }
+    }
+    console.log(expression);
+    // multiplication and division
+    for (let i = 1; i < expression.length - 1; i++) {
+        if (expression[i] === "*") {
+            expression[i-1] = parseFloat(expression[i-1]) * parseFloat(expression[i+1]);
+            expression = expression.slice(0, i).concat(expression.slice(i+2));
+            i--;
+        } else if (expression[i] === "/") {
+            expression[i-1] = parseFloat(expression[i-1]) / parseFloat(expression[i+1]);
+            expression = expression.slice(0, i).concat(expression.slice(i+2));
+            i--;
+        }
+    }
+
+    // addition and subtraction
+    for (let i = 1; i < expression.length - 1; i++) {
+        if (expression[i] === "+") {
+            expression[i-1] = parseFloat(expression[i-1]) + parseFloat(expression[i+1]);
+            expression = expression.slice(0, i).concat(expression.slice(i+2));
+            i--;
+        } else if (expression[i] === "-") {
+            expression[i-1] = parseFloat(expression[i-1]) - parseFloat(expression[i+1]);
+            expression = expression.slice(0, i).concat(expression.slice(i+2));
+            i--;
+        }
+    }
+    console.log(expression[0]);
+    let answer = expression[0].toString();
+    display = [];
+    pointer = answer.length;
+    for (let i = 0; i < answer.length; i++) {
+        display[i] = answer[i];
+    }
+    setDisplay();
 }
-function clear() {
-    // wip
+function clr() {
+    display = [];
+    pointer = 0;
+    setDisplay();
 }
 function history(dir) {
     // wip
