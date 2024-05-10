@@ -13,16 +13,49 @@ function back() {
 }
 function calc(expression) {
     // combine digits into full numbers (FIX)
-    console.log(expression)
     let nums = ["0","1","2","3","4","5","6","7","8","9","."]
     for (let i = 1; i < expression.length; i++) {
-        if (nums.indexOf(expression[i]) !== -1 && nums.indexOf(expression[i-1]) !== -1) {
+        if (isNum(expression[i]) && isNum(expression[i-1])) {
             expression[i-1] += expression[i];
             expression = expression.slice(0, i).concat(expression.slice(i+1));
             i--;
         }
     }
-    console.log(expression);
+
+    // parenthesis and square roots
+    for (let i = 0; i < expression.length - 1; i++) {
+        if (expression[i].charAt(expression[i].length - 1) === "(") {
+            let type = expression[i];
+            let parenthesis = 1, start = i;
+            while (parenthesis !== 0) {
+                i++;
+                if (i >= expression.length) {
+                    expression = [NaN];
+                    break;
+                }
+                if (expression[i] === "(") {
+                    parenthesis++;
+                } else if (expression[i] === ")") {
+                    parenthesis--;
+                }
+            }
+            let result = calc(expression.slice(start + 1, i));
+            if (type === "sqrt(") {
+                result = Math.sqrt(parseFloat(result)).toString();
+            }
+            expression = expression.slice(0, start).concat(result).concat(expression.slice(i+1));
+        }
+    }
+
+    // exponentiation
+    for (let i = 1; i < expression.length - 1; i++) {
+        if (expression[i] === "^") {
+            expression[i-1] = Math.pow(parseFloat(expression[i-1]), parseFloat(expression[i+1]));
+            expression = expression.slice(0, i).concat(expression.slice(i+2));
+            i--;
+        }
+    }
+
     // multiplication and division
     for (let i = 1; i < expression.length - 1; i++) {
         if (expression[i] === "*") {
@@ -48,8 +81,15 @@ function calc(expression) {
             i--;
         }
     }
-    console.log(expression[0]);
-    let answer = expression[0].toString();
+    return parseFloat(expression[0]).toString();
+}
+function clr() {
+    display = [];
+    pointer = 0;
+    setDisplay();
+}
+function enter() {
+    let answer = calc(display);
     display = [];
     pointer = answer.length;
     for (let i = 0; i < answer.length; i++) {
@@ -57,13 +97,17 @@ function calc(expression) {
     }
     setDisplay();
 }
-function clr() {
-    display = [];
-    pointer = 0;
-    setDisplay();
-}
 function history(dir) {
     // wip
+}
+function isNum(num) {
+    let valid = ['0','1','2','3','4','5','6','7','8','9','.'];
+    for (let i = 0; i < num.length; i++) {
+        if (valid.indexOf(num[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
 }
 function move(dir) {
     pointer += dir;
