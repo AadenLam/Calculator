@@ -1,5 +1,9 @@
 let pointer = 0; // pointer '|' position in the display, 0 is at the beginning
 let display = []; // the expression shown in the display
+let historyPos = -1 // history position (-1 if not in history)
+if (localStorage.getItem("historyLength") == null) {
+    localStorage.setItem("historyLength","0");
+}
 function add(x) {
     display.splice(pointer, 0, x);
     pointer++;
@@ -12,8 +16,7 @@ function back() {
     setDisplay();
 }
 function calc(expression) {
-    // combine digits into full numbers (FIX)
-    let nums = ["0","1","2","3","4","5","6","7","8","9","."]
+    // combine digits into full numbers
     for (let i = 1; i < expression.length; i++) {
         if (isNum(expression[i]) && isNum(expression[i-1])) {
             expression[i-1] += expression[i];
@@ -89,6 +92,11 @@ function clr() {
     setDisplay();
 }
 function enter() {
+    for (let i = localStorage.getItem("historyLength") - 1; i > 0; i--) {
+        localStorage.setItem("history".concat(i.toString()), localStorage.getItem("history".concat((i-1).toString())));
+    }
+    localStorage.setItem("history0",display.toString());
+    localStorage.setItem("historyLength",(parseInt(localStorage.getItem("historyLength")) + 1).toString());
     let answer = calc(display);
     display = [];
     pointer = answer.length;
@@ -97,8 +105,27 @@ function enter() {
     }
     setDisplay();
 }
-function history(dir) {
-    // wip
+function hist(dir) {
+    historyPos += dir;
+    console.log(historyPos + " " + localStorage.getItem("historyLength"));
+    if (historyPos < -1) {historyPos = -1;}
+    if (historyPos > parseInt(localStorage.getItem("historyLength")) - 1) {historyPos = parseInt(localStorage.getItem("historyLength")) - 1}
+    if (historyPos === -1) {
+        clr();
+        return;
+    }
+    let i = 0;
+    let x = localStorage.getItem("history".concat(historyPos.toString()));
+    display = [];
+    while (x.indexOf(",") !== -1) {
+        display[i] = x.substring(0, x.indexOf(","));
+        x = x.substring(x.indexOf(",") + 1);
+        i++;
+    }
+    display[i] = x;
+    console.log(display);
+    pointer = display.length;
+    setDisplay();
 }
 function isNum(num) {
     let valid = ['0','1','2','3','4','5','6','7','8','9','.'];
